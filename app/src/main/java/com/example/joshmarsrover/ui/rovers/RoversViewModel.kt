@@ -1,4 +1,4 @@
-package com.example.joshmarsrover.ui.rover_list
+package com.example.joshmarsrover.ui.rovers
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,9 +16,10 @@ class RoversViewModel @Inject constructor(
     private var roversRepo: RoversRepository
     ):ViewModel() {
 
-    private var _roverResponse = MutableLiveData<ResponseWrapper<List<Rover>>>()
-    val roverResponse: LiveData<ResponseWrapper<List<Rover>>>
-        get() = _roverResponse
+    private var _roversResponse = MutableLiveData<ResponseWrapper<List<Rover>>>()
+    val roversResponse: LiveData<ResponseWrapper<List<Rover>>>
+        get() = _roversResponse
+
 
     init {
         getRovers()
@@ -26,7 +27,7 @@ class RoversViewModel @Inject constructor(
 
     private fun getRovers() = viewModelScope.launch {
         roversRepo.getRoversFromNetwork().collect {
-            _roverResponse.postValue(it)
+            _roversResponse.postValue(it)
         }
     }
 }
