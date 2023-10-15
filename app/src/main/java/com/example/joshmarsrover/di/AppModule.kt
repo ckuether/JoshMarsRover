@@ -1,5 +1,6 @@
 package com.example.joshmarsrover.di
 
+import com.example.joshmarsrover.BuildConfig
 import com.example.joshmarsrover.api.PhotosDeserializer
 import com.example.joshmarsrover.api.RoversApiService
 import com.example.joshmarsrover.api.RoversDeserializer
@@ -16,11 +17,17 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @NASA_API_KEY
+    @Provides
+    @Singleton
+    fun providesNasaAPIKey(): String = BuildConfig.NASA_API_KEY
 
 
     @Provides
@@ -47,7 +54,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRoversRepository(apiService: RoversApiService): RoversRepository {
-        return RoversRepositoryImpl(apiService)
+    fun provideRoversRepository(apiService: RoversApiService, @NASA_API_KEY apiKey: String): RoversRepository {
+        return RoversRepositoryImpl(apiService, apiKey)
     }
 }
+
+@Retention(AnnotationRetention.SOURCE)
+@Qualifier
+annotation class NASA_API_KEY

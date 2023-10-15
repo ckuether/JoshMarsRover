@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.data.model.photoCount
 import com.example.joshmarsrover.databinding.ViewHolderRoverBinding
+import com.squareup.picasso.BuildConfig
+import com.squareup.picasso.Picasso
 
 class RoversRVAdapter(val viewModel: RoversViewModel): RecyclerView.Adapter<RoverViewHolder>() {
 
@@ -29,6 +31,11 @@ class RoversRVAdapter(val viewModel: RoversViewModel): RecyclerView.Adapter<Rove
 
         holder.b.nameTv.text = rover.name
         holder.b.photoCountTv.text = "Photo Count ${rover.photoCount}"
+
+        if(rover.photos != null){
+            val firstPhoto = rover.photos!![0]
+            Picasso.get().load(firstPhoto.img_src).into(holder.b.mainPhotoIv)
+        }
     }
 
 }

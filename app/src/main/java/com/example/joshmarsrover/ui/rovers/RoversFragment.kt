@@ -32,6 +32,9 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRoversBinding.bind(view)
 
+        binding.roversRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.roversRv.adapter = RoversRVAdapter(viewModel)
+
         viewModel.roversResponse.observe(viewLifecycleOwner){
             updateRoverViews(it)
         }
@@ -46,8 +49,7 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         binding.roversRv.visibility = if(response is ResponseWrapper.Success) View.VISIBLE else View.GONE
 
         if(response is ResponseWrapper.Success){
-            binding.roversRv.layoutManager = LinearLayoutManager(requireContext())
-            binding.roversRv.adapter = RoversRVAdapter(viewModel)
+            binding.roversRv.adapter?.notifyDataSetChanged()
         }
     }
 }
