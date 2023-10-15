@@ -6,4 +6,7 @@
 
     <dimen name="spacing_medium">8dp</dimen>
     <dimen name="spacing_large">16dp</dimen>
+
+    <dimen name="spacer_height">16dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
 </resources>

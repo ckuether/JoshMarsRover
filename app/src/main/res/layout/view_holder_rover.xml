@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/card_corner_radius">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/main_photo_iv"
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/name_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_20"
-        android:textColor="@color/text_black"/>
+        <com.example.joshmarsrover.ui.views.RoverImageView
+            android:id="@+id/main_photo_iv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/image_background"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/photo_count_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_20"
-        android:textColor="@color/text_black"/>
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_20"
+            android:textColor="@color/text_black"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/photo_count_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_20"
+            android:textColor="@color/text_black"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

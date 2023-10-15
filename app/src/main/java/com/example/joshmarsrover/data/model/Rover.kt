@@ -11,7 +11,13 @@ data class Rover(
     val status: String,
     val total_photos: Int,
     var photos: List<Photo>?
-)
-
-val Rover.photoCount
+){
+    val photoCount
         get() = photos?.size ?: 0
+
+    val firstPhoto: Photo?
+        get() = if(photoCount > 0) photos!![0] else null
+
+    val firstPhotoImageUri: String?
+        get() = firstPhoto?.img_src
+}

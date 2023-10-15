@@ -3,13 +3,12 @@ package com.example.joshmarsrover.ui.rovers
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.joshmarsrover.R
 import com.example.joshmarsrover.data.model.Rover
-import com.example.joshmarsrover.data.model.photoCount
 import com.example.joshmarsrover.databinding.ViewHolderRoverBinding
-import com.squareup.picasso.BuildConfig
 import com.squareup.picasso.Picasso
 
-class RoversRVAdapter(val viewModel: RoversViewModel): RecyclerView.Adapter<RoverViewHolder>() {
+class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adapter<RoverViewHolder>() {
 
     private val rovers: List<Rover>
         get() = viewModel.rovers
@@ -32,10 +31,11 @@ class RoversRVAdapter(val viewModel: RoversViewModel): RecyclerView.Adapter<Rove
         holder.b.nameTv.text = rover.name
         holder.b.photoCountTv.text = "Photo Count ${rover.photoCount}"
 
-        if(rover.photos != null){
-            val firstPhoto = rover.photos!![0]
-            Picasso.get().load(firstPhoto.img_src).into(holder.b.mainPhotoIv)
-        }
+        Picasso.get().load(rover.firstPhotoImageUri)
+            .placeholder(R.drawable.default_image_placeholder)
+            .fit()
+            .into(holder.b.mainPhotoIv)
+
     }
 
 }
