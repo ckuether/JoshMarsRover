@@ -9,5 +9,9 @@ data class Rover(
     val max_sol: Int,
     val name: String,
     val status: String,
-    val total_photos: Int
+    val total_photos: Int,
+    var photos: List<Photo>?
 )
+
+val Rover.photoCount
+        get() = photos?.size ?: 0

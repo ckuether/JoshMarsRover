@@ -16,18 +16,42 @@ class RoversViewModel @Inject constructor(
     private var roversRepo: RoversRepository
     ):ViewModel() {
 
+    val rovers: List<Rover>
+        get() = roversRepo.cachedRovers ?: listOf()
+
     private var _roversResponse = MutableLiveData<ResponseWrapper<List<Rover>>>()
     val roversResponse: LiveData<ResponseWrapper<List<Rover>>>
         get() = _roversResponse
 
+    private var _updateRoverAtPos = MutableLiveData<Int>()
+    val updateRoverAtPos: LiveData<Int>
+        get() = _updateRoverAtPos
 
     init {
-        getRovers()
+        collectRoversFlow()
     }
 
-    private fun getRovers() = viewModelScope.launch {
-        roversRepo.getRoversFromNetwork().collect {
-            _roversResponse.postValue(it)
+    private fun collectRoversFlow() = viewModelScope.launch {
+        roversRepo.getRoversFromNetwork()
+            .collect { roversRepsonse ->
+                _roversResponse.postValue(roversRepsonse)
+                if(roversRepsonse is ResponseWrapper.Success){
+                    updateRoverListPhotos(roversRepsonse.data)
+                }
+            }
+    }
+
+    private fun updateRoverListPhotos(rovers: List<Rover>){
+        rovers.forEach { rover ->
+            if(rover.photos == null)
+                getRoverPhotosFromNetwork(rover)
         }
+    }
+
+    fun getRoverPhotosFromNetwork(rover: Rover) = viewModelScope.launch {
+        roversRepo.getRoverPhotosFromNetwork(rover)
+            .collect{
+                _updateRoverAtPos.postValue(it)
+            }
     }
 }

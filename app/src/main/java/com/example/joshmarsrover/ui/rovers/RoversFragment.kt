@@ -35,6 +35,10 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         viewModel.roversResponse.observe(viewLifecycleOwner){
             updateRoverViews(it)
         }
+
+        viewModel.updateRoverAtPos.observe(viewLifecycleOwner){
+            binding.roversRv.adapter?.notifyItemChanged(it)
+        }
     }
 
     private fun updateRoverViews(response: ResponseWrapper<List<Rover>>){
@@ -43,7 +47,7 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
         if(response is ResponseWrapper.Success){
             binding.roversRv.layoutManager = LinearLayoutManager(requireContext())
-            binding.roversRv.adapter = RoversRVAdapter(response.data)
+            binding.roversRv.adapter = RoversRVAdapter(viewModel)
         }
     }
 }

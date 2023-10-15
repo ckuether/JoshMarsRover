@@ -1,7 +1,9 @@
 package com.example.joshmarsrover.di
 
+import com.example.joshmarsrover.api.PhotosDeserializer
 import com.example.joshmarsrover.api.RoversApiService
 import com.example.joshmarsrover.api.RoversDeserializer
+import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.data.repository.RoversRepositoryImpl
 import com.example.joshmarsrover.domain.repository.RoversRepository
@@ -26,6 +28,7 @@ object AppModule {
     fun provideGsonConverterFactory(): Converter.Factory{
         val gsonBuilder = GsonBuilder()
         gsonBuilder.registerTypeAdapter(TypeToken.getParameterized(List::class.java, Rover::class.java).type, RoversDeserializer())
+        gsonBuilder.registerTypeAdapter(TypeToken.getParameterized(List::class.java, Photo::class.java).type, PhotosDeserializer())
         return GsonConverterFactory.create(gsonBuilder.create())
     }
 
