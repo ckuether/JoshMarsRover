@@ -1,11 +1,10 @@
-package com.example.joshmarsrover.ui.rover_details
+package com.example.joshmarsrover.ui.rovers.rover_details
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.joshmarsrover.R
-import com.example.joshmarsrover.RoversCallback
-import com.example.joshmarsrover.common.Contstants.KEY_ROVER
+import com.example.joshmarsrover.ui.rovers.RoversCallback
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
@@ -20,16 +19,15 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         get() = roversCallback.viewModel
 
     companion object {
-        fun newInstance(rover: Rover): RoverDetailsFragment {
+        fun newInstance(): RoverDetailsFragment {
             val frag = RoverDetailsFragment()
-            val b = Bundle()
-            b.putParcelable(KEY_ROVER, rover)
             return frag
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         roversCallback = (requireActivity() as RoversCallback)
     }
 

@@ -1,25 +1,23 @@
-package com.example.joshmarsrover
+package com.example.joshmarsrover.ui.rovers
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.ActivityMainBinding
 import com.example.joshmarsrover.ui.common.FragmentNavigator
-import com.example.joshmarsrover.ui.rovers.RoversFragment
-import com.example.joshmarsrover.ui.rovers.RoversViewModel
+import com.example.joshmarsrover.ui.rovers.rovers_list.RoversFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 interface RoversCallback {
     var viewModel: RoversViewModel
     fun navigateToRovers()
-    fun navigateToRoverDetails(rover: Rover)
+    fun navigateToRoverDetails()
 }
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), RoversCallback {
+class RoversActivity : AppCompatActivity(), RoversCallback {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -36,14 +34,20 @@ class MainActivity : AppCompatActivity(), RoversCallback {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         navigateToRovers()
+
+        viewModel.selectedRoverPos.observe(this){
+            if(it != null){
+                navigateToRoverDetails()
+            }
+        }
     }
 
     override fun navigateToRovers(){
         fragmentNavigator.navigateToRovers(binding.container.id)
     }
 
-    override fun navigateToRoverDetails(rover: Rover){
-        fragmentNavigator.navigateToRoverDetails(binding.container.id, rover)
+    override fun navigateToRoverDetails(){
+        fragmentNavigator.navigateToRoverDetails(binding.container.id)
     }
 
     override fun onBackPressed() {

@@ -39,36 +39,17 @@
                     android:textStyle="bold"
                     android:paddingBottom="@dimen/spacing_small"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/launch_date_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_12"
-                    android:textColor="@color/text_grey"
-                    android:paddingBottom="@dimen/spacing_tiny"/>
+                <include android:id="@+id/launch_date_tv"
+                    layout="@layout/text_view_details"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/landing_date_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_12"
-                    android:textColor="@color/text_grey"
-                    android:paddingBottom="@dimen/spacing_tiny"/>
+                <include android:id="@+id/landing_date_tv"
+                    layout="@layout/text_view_details"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/photo_count_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_12"
-                    android:textColor="@color/text_grey"
-                    android:paddingBottom="@dimen/spacing_tiny"/>
+                <include android:id="@+id/photo_count_tv"
+                    layout="@layout/text_view_details"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/cameras_available_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_12"
-                    android:textColor="@color/text_grey" />
+                <include android:id="@+id/cameras_available_tv"
+                    layout="@layout/text_view_details"/>
             </LinearLayout>
 
             <RelativeLayout

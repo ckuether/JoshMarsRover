@@ -27,6 +27,14 @@ class RoversViewModel @Inject constructor(
     val updateRoverAtPos: LiveData<Int>
         get() = _updateRoverAtPos
 
+    private var _selectedRoverPos = MutableLiveData<Int?>()
+    val selectedRoverPos: LiveData<Int?>
+        get() = _selectedRoverPos
+
+    fun updateSelectedRoverPos(pos: Int?){
+        _selectedRoverPos.postValue(pos)
+    }
+
     init {
         collectRoversFlow()
     }

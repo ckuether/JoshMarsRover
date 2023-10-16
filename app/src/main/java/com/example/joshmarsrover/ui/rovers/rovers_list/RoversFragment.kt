@@ -1,4 +1,4 @@
-package com.example.joshmarsrover.ui.rovers
+package com.example.joshmarsrover.ui.rovers.rovers_list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.example.joshmarsrover.R
-import com.example.joshmarsrover.RoversCallback
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoversBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.AppResourceManager
+import com.example.joshmarsrover.ui.rovers.RoversCallback
+import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -30,12 +31,12 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         fun newInstance() = RoversFragment()
     }
 
-    private lateinit var viewModel: RoversViewModel
+    private val viewModel: RoversViewModel
+        get() = callback.viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         callback = (requireActivity() as RoversCallback)
-        viewModel = callback.viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         binding = FragmentRoversBinding.bind(view)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = RoversRVAdapter(callback)
+        recyclerView.adapter = RoversRVAdapter(viewModel)
 
         val spacerDecoration = DividerItemDecoration(requireContext(), VERTICAL)
         spacerDecoration.setDrawable(resourceManager.getDrawableResource(R.drawable.spacer)!!)

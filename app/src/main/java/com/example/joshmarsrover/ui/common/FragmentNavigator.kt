@@ -2,8 +2,8 @@ package com.example.joshmarsrover.ui.common
 
 import androidx.fragment.app.FragmentManager
 import com.example.joshmarsrover.data.model.Rover
-import com.example.joshmarsrover.ui.rover_details.RoverDetailsFragment
-import com.example.joshmarsrover.ui.rovers.RoversFragment
+import com.example.joshmarsrover.ui.rovers.rover_details.RoverDetailsFragment
+import com.example.joshmarsrover.ui.rovers.rovers_list.RoversFragment
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
@@ -15,8 +15,8 @@ class FragmentNavigator @Inject constructor(private val fragmentManager: Fragmen
         fragmentManager.beginTransaction().replace(containerId, frag).commit()
     }
 
-    fun navigateToRoverDetails(containerId: Int, rover: Rover){
-        val frag = RoverDetailsFragment.newInstance(rover)
+    fun navigateToRoverDetails(containerId: Int){
+        val frag = RoverDetailsFragment.newInstance()
         fragmentManager.beginTransaction().replace(containerId, frag).commit()
     }
 }

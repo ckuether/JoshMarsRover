@@ -1,18 +1,16 @@
-package com.example.joshmarsrover.ui.rovers
+package com.example.joshmarsrover.ui.rovers.rovers_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.joshmarsrover.R
-import com.example.joshmarsrover.RoversCallback
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.ViewHolderRoverBinding
+import com.example.joshmarsrover.ui.rovers.RoversCallback
+import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import com.squareup.picasso.Picasso
 
-class RoversRVAdapter(private val callback: RoversCallback): RecyclerView.Adapter<RoverViewHolder>() {
-
-    private val viewModel: RoversViewModel
-        get() = callback.viewModel
+class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adapter<RoverViewHolder>() {
 
     private val rovers: List<Rover>
         get() = viewModel.rovers
@@ -38,13 +36,13 @@ class RoversRVAdapter(private val callback: RoversCallback): RecyclerView.Adapte
             .into(holder.b.mainPhotoIv)
 
         holder.b.nameTv.text = rover.name
-        holder.b.launchDateTv.text = "Launch: ${rover.formattedLaunchDate}"
-        holder.b.landingDateTv.text = "Landing: ${rover.formattedLandingDate}"
-        holder.b.photoCountTv.text = "Photo Count ${rover.photoCount}"
-        holder.b.camerasAvailableTv.text = "Cameras Available: ${rover.camerasCount}"
+        holder.b.launchDateTv.detailsTv.text = "Launch: ${rover.formattedLaunchDate}"
+        holder.b.landingDateTv.detailsTv.text = "Landing: ${rover.formattedLandingDate}"
+        holder.b.photoCountTv.detailsTv.text = "Photo Count ${rover.photoCount}"
+        holder.b.camerasAvailableTv.detailsTv.text = "Cameras Available: ${rover.camerasCount}"
 
         holder.b.container.setOnClickListener {
-            callback.navigateToRoverDetails(rover)
+            viewModel.updateSelectedRoverPos(position)
         }
     }
 }
