@@ -1,11 +1,9 @@
 package com.example.joshmarsrover.data.model
 
-import android.util.Log
+import android.os.Parcel
+import android.os.Parcelable
 import com.example.joshmarsrover.ui.common.DateFormat
 import com.example.joshmarsrover.ui.common.standardToFormattedDateString
-import com.example.joshmarsrover.ui.common.toDate
-import com.example.joshmarsrover.ui.common.toFormattedString
-import java.lang.Exception
 
 data class Rover(
     val cameras: List<Camera>,
@@ -18,9 +16,7 @@ data class Rover(
     val status: String,
     val total_photos: Int,
     var photos: List<Photo>?
-){
-    private val TAG = Rover::class.java.simpleName
-
+): Parcelable{
     val camerasCount
         get() = cameras.size
 
@@ -38,4 +34,12 @@ data class Rover(
 
     val formattedLandingDate: String
         get() = landing_date.standardToFormattedDateString(DateFormat.STANDARD_FORMAT)
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(p0: Parcel, p1: Int) {
+
+    }
 }

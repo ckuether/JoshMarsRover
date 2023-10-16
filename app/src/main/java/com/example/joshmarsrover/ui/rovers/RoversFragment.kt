@@ -1,5 +1,6 @@
 package com.example.joshmarsrover.ui.rovers
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -7,8 +8,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.example.joshmarsrover.MainActivity
 import com.example.joshmarsrover.R
+import com.example.joshmarsrover.RoversCallback
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoversBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
+    lateinit var callback: RoversCallback
     private lateinit var binding: FragmentRoversBinding
     private val recyclerView: RecyclerView
         get() = binding.roversRv
@@ -33,7 +35,13 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = (requireActivity() as MainActivity).viewModel
+        callback = (requireActivity() as RoversCallback)
+        viewModel = callback.viewModel
+    }
+
+    override fun onAttach(context: Context) {
+        callback = (context as RoversCallback)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +49,8 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         binding = FragmentRoversBinding.bind(view)
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = RoversRVAdapter(viewModel)
+        recyclerView.adapter = RoversRVAdapter(callback)
+
         val spacerDecoration = DividerItemDecoration(requireContext(), VERTICAL)
         spacerDecoration.setDrawable(resourceManager.getDrawableResource(R.drawable.spacer)!!)
         recyclerView.addItemDecoration(spacerDecoration)
