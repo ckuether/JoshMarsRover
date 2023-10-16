@@ -4,6 +4,7 @@ import com.example.joshmarsrover.BuildConfig
 import com.example.joshmarsrover.api.PhotosDeserializer
 import com.example.joshmarsrover.api.RoversApiService
 import com.example.joshmarsrover.api.RoversDeserializer
+import com.example.joshmarsrover.common.Contstants
 import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.data.repository.RoversRepositoryImpl
@@ -27,8 +28,9 @@ object AppModule {
     @NASA_API_KEY
     @Provides
     @Singleton
-    fun nasaAPIKey(): String = BuildConfig.NASA_API_KEY
-
+//    fun nasaAPIKey(): String = BuildConfig.NASA_API_KEY
+    fun nasaAPIKey(): String = Contstants.API_KEY
+    //TODO:
 
     @Provides
     @Singleton
