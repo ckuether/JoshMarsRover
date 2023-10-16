@@ -23,12 +23,14 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_28"
-            android:paddingLeft="@dimen/spacing_medium"/>
+            android:paddingLeft="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_medium"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/spacing_medium"
             android:weightSum="5">
 
             <include
@@ -49,6 +51,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/spacing_medium"
             android:weightSum="5">
 
             <include android:id="@+id/landing_date_tv"

@@ -15,8 +15,8 @@ class FragmentNavigator @Inject constructor(private val fragmentManager: Fragmen
         fragmentManager.beginTransaction().replace(containerId, frag).commit()
     }
 
-    fun navigateToRoverDetails(containerId: Int){
-        val frag = RoverDetailsFragment.newInstance()
+    fun navigateToRoverDetails(containerId: Int, roverPos: Int){
+        val frag = RoverDetailsFragment.newInstance(roverPos)
         fragmentManager.beginTransaction().replace(containerId, frag).commit()
     }
 }

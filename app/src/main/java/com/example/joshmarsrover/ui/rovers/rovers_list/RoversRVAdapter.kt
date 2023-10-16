@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.ViewHolderRoverBinding
-import com.example.joshmarsrover.ui.rovers.RoversCallback
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import com.squareup.picasso.Picasso
 
@@ -42,7 +41,7 @@ class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adap
         holder.b.camerasAvailableTv.detailsTv.text = "Cameras Available: ${rover.camerasCount}"
 
         holder.b.container.setOnClickListener {
-            viewModel.updateSelectedRoverPos(position)
+            viewModel.updateNavToRoverPos(position)
         }
     }
 }

@@ -13,7 +13,7 @@ import javax.inject.Inject
 interface RoversCallback {
     var viewModel: RoversViewModel
     fun navigateToRovers()
-    fun navigateToRoverDetails()
+    fun navigateToRoverDetails(roverPos: Int)
 }
 
 @AndroidEntryPoint
@@ -35,19 +35,21 @@ class RoversActivity : AppCompatActivity(), RoversCallback {
         setContentView(binding.root)
         navigateToRovers()
 
-        viewModel.selectedRoverPos.observe(this){
-            if(it != null){
-                navigateToRoverDetails()
+        viewModel.navToRoverPosition.observe(this){
+            it?.let{
+                navigateToRoverDetails(it)
+                viewModel.updateNavToRoverPos(null)
             }
         }
     }
 
     override fun navigateToRovers(){
         fragmentNavigator.navigateToRovers(binding.container.id)
+        viewModel.updateNavToRoverPos(null)
     }
 
-    override fun navigateToRoverDetails(){
-        fragmentNavigator.navigateToRoverDetails(binding.container.id)
+    override fun navigateToRoverDetails(roverPos: Int){
+        fragmentNavigator.navigateToRoverDetails(binding.container.id, roverPos)
     }
 
     override fun onBackPressed() {
