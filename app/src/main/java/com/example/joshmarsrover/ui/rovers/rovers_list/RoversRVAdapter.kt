@@ -35,8 +35,8 @@ class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adap
             .into(holder.b.mainPhotoIv)
 
         holder.b.nameTv.text = rover.name
-        holder.b.launchDateTv.detailsTv.text = rover.launchDateString
-        holder.b.landingDateTv.detailsTv.text = rover.landingDateString
+        holder.b.launchDateTv.detailsTv.text = rover.launchDateDescription
+        holder.b.landingDateTv.detailsTv.text = rover.landingDateDescription
         holder.b.photoCountTv.detailsTv.text = rover.photoCountString
         holder.b.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
 

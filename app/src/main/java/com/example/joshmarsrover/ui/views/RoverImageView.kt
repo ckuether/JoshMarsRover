@@ -6,9 +6,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.floor
 
 class RoverImageView: AppCompatImageView {
-
-    private val aspectRation = ROVER_ASPECT_RATIO
-
     constructor(context: Context): super(context)
 
     constructor(context: Context, attrs: AttributeSet): super(context, attrs)

@@ -1,7 +1,9 @@
 package com.example.joshmarsrover.data.model
 
 import com.example.joshmarsrover.common.DateFormat
-import com.example.joshmarsrover.common.standardToFormattedDateString
+import com.example.joshmarsrover.common.toDate
+import com.example.joshmarsrover.common.toFormattedString
+import java.util.Date
 
 data class Rover(
     val cameras: List<Camera>,
@@ -30,15 +32,21 @@ data class Rover(
     val firstPhoto: Photo?
         get() = if(photoCount > 0) photos!![0] else null
 
-    val formattedLaunchDate: String
-        get() = launch_date.standardToFormattedDateString(DateFormat.STANDARD_FORMAT)
+    private val launchDate: Date?
+        get() = launch_date.toDate(DateFormat.NETWORK_FORMAT)
 
-    val launchDateString: String
+    private val formattedLaunchDate: String
+        get() = launchDate?.toFormattedString() ?: ""
+
+    val launchDateDescription: String
         get() = "Launch: $formattedLaunchDate"
 
-    val formattedLandingDate: String
-        get() = landing_date.standardToFormattedDateString(DateFormat.STANDARD_FORMAT)
+    private val landingDate: Date?
+        get() = launch_date.toDate(DateFormat.NETWORK_FORMAT)
 
-    val landingDateString: String
+    private val formattedLandingDate: String
+        get() = landingDate?.toFormattedString() ?: ""
+
+    val landingDateDescription: String
         get() = "Landing: $formattedLandingDate"
 }
