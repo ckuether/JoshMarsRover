@@ -1,6 +1,5 @@
 package com.example.joshmarsrover.ui.rovers
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -37,11 +36,6 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         super.onCreate(savedInstanceState)
         callback = (requireActivity() as RoversCallback)
         viewModel = callback.viewModel
-    }
-
-    override fun onAttach(context: Context) {
-        callback = (context as RoversCallback)
-        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

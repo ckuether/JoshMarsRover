@@ -1,10 +1,8 @@
 package com.example.joshmarsrover.ui.rover_details
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.joshmarsrover.MainActivity
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.RoversCallback
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER
@@ -18,6 +16,9 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
 
     private lateinit var binding: FragmentRoverDetailsBinding
 
+    private val viewModel: RoversViewModel
+        get() = roversCallback.viewModel
+
     companion object {
         fun newInstance(rover: Rover): RoverDetailsFragment {
             val frag = RoverDetailsFragment()
@@ -27,12 +28,9 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         }
     }
 
-    private lateinit var viewModel: RoversViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         roversCallback = (requireActivity() as RoversCallback)
-        viewModel = roversCallback.viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.joshmarsrover.ui.common
+package com.example.joshmarsrover.common
 
 import java.text.SimpleDateFormat
 import java.util.Date

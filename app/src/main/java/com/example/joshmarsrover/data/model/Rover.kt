@@ -2,8 +2,8 @@ package com.example.joshmarsrover.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.joshmarsrover.ui.common.DateFormat
-import com.example.joshmarsrover.ui.common.standardToFormattedDateString
+import com.example.joshmarsrover.common.DateFormat
+import com.example.joshmarsrover.common.standardToFormattedDateString
 
 data class Rover(
     val cameras: List<Camera>,

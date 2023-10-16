@@ -1,4 +1,4 @@
-package com.example.joshmarsrover.di
+package com.example.joshmarsrover.di.app
 
 import com.example.joshmarsrover.BuildConfig
 import com.example.joshmarsrover.api.PhotosDeserializer
@@ -27,12 +27,12 @@ object AppModule {
     @NASA_API_KEY
     @Provides
     @Singleton
-    fun providesNasaAPIKey(): String = BuildConfig.NASA_API_KEY
+    fun nasaAPIKey(): String = BuildConfig.NASA_API_KEY
 
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactory(): Converter.Factory{
+    fun gsonConverterFactory(): Converter.Factory{
         val gsonBuilder = GsonBuilder()
         gsonBuilder.registerTypeAdapter(TypeToken.getParameterized(List::class.java, Rover::class.java).type, RoversDeserializer())
         gsonBuilder.registerTypeAdapter(TypeToken.getParameterized(List::class.java, Photo::class.java).type, PhotosDeserializer())
@@ -41,20 +41,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(converterFactory: Converter.Factory): Retrofit = Retrofit.Builder()
+    fun retrofit(converterFactory: Converter.Factory): Retrofit = Retrofit.Builder()
         .baseUrl("https://api.nasa.gov/")
         .addConverterFactory(converterFactory)
         .build()
 
     @Provides
     @Singleton
-    fun provideRoverApiService(retrofit: Retrofit): RoversApiService {
+    fun roverApiService(retrofit: Retrofit): RoversApiService {
         return retrofit.create(RoversApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideRoversRepository(apiService: RoversApiService, @NASA_API_KEY apiKey: String): RoversRepository {
+    fun roversRepository(apiService: RoversApiService, @NASA_API_KEY apiKey: String): RoversRepository {
         return RoversRepositoryImpl(apiService, apiKey)
     }
 }

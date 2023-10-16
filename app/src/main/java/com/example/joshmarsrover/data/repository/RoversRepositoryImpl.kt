@@ -3,7 +3,7 @@ package com.example.joshmarsrover.data.repository
 import com.example.joshmarsrover.api.RoversApiService
 import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
-import com.example.joshmarsrover.di.NASA_API_KEY
+import com.example.joshmarsrover.di.app.NASA_API_KEY
 import com.example.joshmarsrover.domain.repository.RoversRepository
 import javax.inject.Inject
 import com.example.joshmarsrover.domain.model.ResponseWrapper.*

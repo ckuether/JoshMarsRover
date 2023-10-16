@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.ActivityMainBinding
-import com.example.joshmarsrover.ui.rover_details.RoverDetailsFragment
+import com.example.joshmarsrover.ui.common.FragmentNavigator
 import com.example.joshmarsrover.ui.rovers.RoversFragment
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 interface RoversCallback {
     var viewModel: RoversViewModel
@@ -21,6 +22,8 @@ interface RoversCallback {
 class MainActivity : AppCompatActivity(), RoversCallback {
 
     private lateinit var binding: ActivityMainBinding
+
+    @Inject lateinit var fragmentNavigator: FragmentNavigator
 
     private val containerFrag: Fragment?
         get() = supportFragmentManager.findFragmentById(binding.container.id)
@@ -36,13 +39,11 @@ class MainActivity : AppCompatActivity(), RoversCallback {
     }
 
     override fun navigateToRovers(){
-        val frag = RoversFragment.newInstance()
-        supportFragmentManager.beginTransaction().replace(binding.container.id, frag).commit()
+        fragmentNavigator.navigateToRovers(binding.container.id)
     }
 
     override fun navigateToRoverDetails(rover: Rover){
-        val frag = RoverDetailsFragment.newInstance(rover)
-        supportFragmentManager.beginTransaction().replace(binding.container.id, frag).commit()
+        fragmentNavigator.navigateToRoverDetails(binding.container.id, rover)
     }
 
     override fun onBackPressed() {
