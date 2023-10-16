@@ -29,16 +29,16 @@ class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adap
             viewModel.getRoverPhotosFromNetwork(rover)
         }
 
-        Picasso.get().load(rover.firstPhotoImageUri)
+        Picasso.get().load(rover.firstPhoto?.img_src)
             .placeholder(R.drawable.default_image_placeholder)
             .fit()
             .into(holder.b.mainPhotoIv)
 
         holder.b.nameTv.text = rover.name
-        holder.b.launchDateTv.detailsTv.text = "Launch: ${rover.formattedLaunchDate}"
-        holder.b.landingDateTv.detailsTv.text = "Landing: ${rover.formattedLandingDate}"
-        holder.b.photoCountTv.detailsTv.text = "Photo Count ${rover.photoCount}"
-        holder.b.camerasAvailableTv.detailsTv.text = "Cameras Available: ${rover.camerasCount}"
+        holder.b.launchDateTv.detailsTv.text = rover.launchDateString
+        holder.b.landingDateTv.detailsTv.text = rover.landingDateString
+        holder.b.photoCountTv.detailsTv.text = rover.photoCountString
+        holder.b.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
 
         holder.b.container.setOnClickListener {
             viewModel.updateNavToRoverPos(position)

@@ -15,9 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
 
     private lateinit var roversCallback: RoversCallback
-
     private lateinit var binding: FragmentRoverDetailsBinding
-
     private lateinit var viewModel: RoverDetailsViewModel
 
     private val rover: Rover
@@ -52,9 +50,11 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         }
 
         binding.nameTv.text = rover.name
-        binding.launchDateTv.detailsTv.text = "Launch: ${rover.formattedLaunchDate}"
-        binding.landingDateTv.detailsTv.text = "Landing: ${rover.formattedLandingDate}"
-        binding.photoCountTv.detailsTv.text = "Photo Count ${rover.photoCount}"
-        binding.camerasAvailableTv.detailsTv.text = "Cameras Available: ${rover.camerasCount}"
+        binding.launchDateTv.detailsTv.text = rover.launchDateString
+        binding.landingDateTv.detailsTv.text = rover.landingDateString
+        binding.photoCountTv.detailsTv.text = rover.photoCountString
+        binding.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
+
+        binding.photosGrid.adapter = RoverPhotosGridAdapter(rover.photos ?: listOf())
     }
 }

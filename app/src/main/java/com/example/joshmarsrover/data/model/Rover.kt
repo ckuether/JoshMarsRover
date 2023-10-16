@@ -1,7 +1,5 @@
 package com.example.joshmarsrover.data.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.example.joshmarsrover.common.DateFormat
 import com.example.joshmarsrover.common.standardToFormattedDateString
 
@@ -16,30 +14,31 @@ data class Rover(
     val status: String,
     val total_photos: Int,
     var photos: List<Photo>?
-): Parcelable{
-    val camerasCount
+){
+    val camerasCount: Int
         get() = cameras.size
 
-    val photoCount
+    val camerasAvailableString
+        get() = "Cameras Available: $camerasCount"
+
+    val photoCount: Int
         get() = photos?.size ?: 0
+
+    val photoCountString
+        get() = "Photo Count: $photoCount"
 
     val firstPhoto: Photo?
         get() = if(photoCount > 0) photos!![0] else null
 
-    val firstPhotoImageUri: String?
-        get() = firstPhoto?.img_src
-
     val formattedLaunchDate: String
         get() = launch_date.standardToFormattedDateString(DateFormat.STANDARD_FORMAT)
+
+    val launchDateString: String
+        get() = "Launch: $formattedLaunchDate"
 
     val formattedLandingDate: String
         get() = landing_date.standardToFormattedDateString(DateFormat.STANDARD_FORMAT)
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun writeToParcel(p0: Parcel, p1: Int) {
-
-    }
+    val landingDateString: String
+        get() = "Landing: $formattedLandingDate"
 }
