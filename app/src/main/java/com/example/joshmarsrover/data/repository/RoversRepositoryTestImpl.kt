@@ -12,6 +12,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.withContext
+import java.util.Date
 import javax.inject.Inject
 
 class RoversRepositoryTestImpl @Inject constructor(var inputStreamReader: LocalFileReader): RoversRepository {
@@ -36,18 +37,18 @@ class RoversRepositoryTestImpl @Inject constructor(var inputStreamReader: LocalF
         }
     }
 
-    override suspend fun getRoverPhotosFromNetwork(rover: Rover) = callbackFlow {
+    override suspend fun getRoverPhotosFromNetwork(rover: Rover, date: String) = callbackFlow {
         withContext(Dispatchers.IO) {
             try {
-                trySend(-1)
+                trySend(ResponseWrapper.Loading)
+                throw Exception("Not Implemented")
             } catch (e: Exception) {
                 e.printStackTrace()
-                trySend(-1)
+                trySend(ResponseWrapper.Failure(e))
             }
         }
         awaitClose{
 
         }
     }
-
 }

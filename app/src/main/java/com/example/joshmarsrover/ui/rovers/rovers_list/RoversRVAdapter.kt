@@ -26,7 +26,7 @@ class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adap
     override fun onBindViewHolder(holder: RoverViewHolder, position: Int) {
         val rover = rovers[position]
         if(rover.photos == null){
-            viewModel.getRoverPhotosFromNetwork(rover)
+            viewModel.getRoverPhotosFromNetwork(rover, position)
         }
 
         Picasso.get().load(rover.firstPhoto?.img_src)

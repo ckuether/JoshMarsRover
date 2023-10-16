@@ -6,15 +6,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER_POS
-import com.example.joshmarsrover.common.toFormattedDate
+import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.ui.rovers.RoversCallback
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
+import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.DatePickerManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +47,7 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         val roverPos = arguments?.getInt(KEY_ROVER_POS)!!
         viewModel = ViewModelProvider(this)[RoverDetailsViewModel::class.java]
         //TODO:
-        viewModel.setRoverPosition(roverPos)
+        viewModel.initRoverPosition(roverPos)
         roversCallback = (requireActivity() as RoversCallback)
     }
 
@@ -66,22 +66,35 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         binding.photoCountTv.detailsTv.text = rover.photoCountString
         binding.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
 
-        binding.photosGrid.adapter = RoverPhotosGridAdapter(rover.photos ?: listOf())
-
-        viewModel.selectedDate.observe(viewLifecycleOwner){
-            updateSelectedDateText()
-        }
+        setGridAdapterPhotos(rover.photos)
 
         binding.datePickerContainer.setOnClickListener {
             datePickerManager.showDatePicker()
         }
 
         datePicker.addOnPositiveButtonClickListener {
-            viewModel.updateSelectedDate(Date(it))
+            //TODO:
+            val date = Date(it)
+            viewModel.updateSelectedDate(date)
+            updateSelectedDateText()
+        }
+
+        viewModel.updatePhotosResponse.observe(viewLifecycleOwner){
+            it?.let {
+                binding.progressBar.visibility = if(it is ResponseWrapper.Loading) View.VISIBLE else View.GONE
+
+                if(it is ResponseWrapper.Success) {
+                    setGridAdapterPhotos(it.data)
+                }
+            }
         }
     }
 
     private fun updateSelectedDateText(){
         binding.selectedDateTv.text = viewModel.selectedDateFormattedString
+    }
+
+    private fun setGridAdapterPhotos(photos: List<Photo>?){
+        binding.photosGrid.adapter = RoverPhotosGridAdapter(photos ?: listOf())
     }
 }

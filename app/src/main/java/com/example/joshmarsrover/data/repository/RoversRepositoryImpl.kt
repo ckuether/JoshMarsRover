@@ -43,19 +43,21 @@ class RoversRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRoverPhotosFromNetwork(rover: Rover) = callbackFlow {
-        val apiCall = apiService.getRoverPhotos(rover.name, rover.max_date, apiKey)
+    //TODO:
+    override suspend fun getRoverPhotosFromNetwork(rover: Rover, date: String) = callbackFlow {
+        val apiCall = apiService.getRoverPhotos(rover.name, date, apiKey)
         withContext(Dispatchers.IO){
             try{
+                trySend(Loading)
                 val roverPhotos: List<Photo> = apiCall.await()
                 val roverIndex = cachedRovers?.indexOf(rover) ?: -1
                 if(roverIndex != -1){
                     cachedRovers!![roverIndex].photos = roverPhotos
                 }
-                trySend(roverIndex)
+                trySend(Success(roverPhotos))
             }catch (e: Exception){
                 e.printStackTrace()
-                trySend(-1)
+                trySend(Failure(e))
             }
         }
         awaitClose {

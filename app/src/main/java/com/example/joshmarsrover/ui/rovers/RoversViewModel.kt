@@ -43,23 +43,15 @@ class RoversViewModel @Inject constructor(
         roversRepo.getRoversFromNetwork()
             .collect { roversRepsonse ->
                 _roversResponse.postValue(roversRepsonse)
-                if(roversRepsonse is ResponseWrapper.Success){
-                    updateRoverListPhotos(roversRepsonse.data)
-                }
             }
     }
 
-    private fun updateRoverListPhotos(rovers: List<Rover>){
-        rovers.forEach { rover ->
-            if(rover.photos == null)
-                getRoverPhotosFromNetwork(rover)
-        }
-    }
-
-    fun getRoverPhotosFromNetwork(rover: Rover) = viewModelScope.launch {
-        roversRepo.getRoverPhotosFromNetwork(rover)
+    fun getRoverPhotosFromNetwork(rover: Rover, pos: Int) = viewModelScope.launch {
+        roversRepo.getRoverPhotosFromNetwork(rover, rover.max_date)
             .collect{
-                _updateRoverAtPos.postValue(it)
+                if(it is ResponseWrapper.Success){
+                    _updateRoverAtPos.postValue(pos)
+                }
             }
     }
 }
