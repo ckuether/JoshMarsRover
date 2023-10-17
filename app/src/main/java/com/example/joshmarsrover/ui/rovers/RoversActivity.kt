@@ -10,14 +10,8 @@ import com.example.joshmarsrover.ui.rovers.rovers_list.RoversFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-interface RoversCallback {
-    var viewModel: RoversViewModel
-    fun navigateToRovers()
-    fun navigateToRoverDetails(roverPos: Int)
-}
-
 @AndroidEntryPoint
-class RoversActivity : AppCompatActivity(), RoversCallback {
+class RoversActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -26,7 +20,7 @@ class RoversActivity : AppCompatActivity(), RoversCallback {
     private val containerFrag: Fragment?
         get() = supportFragmentManager.findFragmentById(binding.container.id)
 
-    override lateinit var viewModel: RoversViewModel
+    lateinit var viewModel: RoversViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +37,12 @@ class RoversActivity : AppCompatActivity(), RoversCallback {
         }
     }
 
-    override fun navigateToRovers(){
+    fun navigateToRovers(){
         fragmentNavigator.navigateToRovers(binding.container.id)
         viewModel.updateNavToRoverPos(null)
     }
 
-    override fun navigateToRoverDetails(roverPos: Int){
+    fun navigateToRoverDetails(roverPos: Int){
         fragmentNavigator.navigateToRoverDetails(binding.container.id, roverPos)
     }
 

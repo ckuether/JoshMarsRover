@@ -6,21 +6,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER_POS
+import com.example.joshmarsrover.common.datePickerValueToDate
 import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
-import com.example.joshmarsrover.ui.rovers.RoversCallback
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.DatePickerManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
 
-    private lateinit var roversCallback: RoversCallback
     private lateinit var binding: FragmentRoverDetailsBinding
     private lateinit var viewModel: RoverDetailsViewModel
 
@@ -46,9 +44,7 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         super.onCreate(savedInstanceState)
         val roverPos = arguments?.getInt(KEY_ROVER_POS)!!
         viewModel = ViewModelProvider(this)[RoverDetailsViewModel::class.java]
-        //TODO:
         viewModel.initRoverPosition(roverPos)
-        roversCallback = (requireActivity() as RoversCallback)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,9 +69,7 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         }
 
         datePicker.addOnPositiveButtonClickListener {
-            //TODO:
-            val date = Date(it)
-            viewModel.updateSelectedDate(date)
+            viewModel.updateSelectedDate(it.datePickerValueToDate())
             updateSelectedDateText()
         }
 

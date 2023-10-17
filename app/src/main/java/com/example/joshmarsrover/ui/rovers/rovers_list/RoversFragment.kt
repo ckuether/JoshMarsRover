@@ -12,7 +12,7 @@ import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoversBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.AppResourceManager
-import com.example.joshmarsrover.ui.rovers.RoversCallback
+import com.example.joshmarsrover.ui.rovers.RoversActivity
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,7 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
-    lateinit var callback: RoversCallback
     private lateinit var binding: FragmentRoversBinding
     private val recyclerView: RecyclerView
         get() = binding.roversRv
@@ -31,12 +30,11 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
         fun newInstance() = RoversFragment()
     }
 
-    private val viewModel: RoversViewModel
-        get() = callback.viewModel
+    private lateinit var viewModel: RoversViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        callback = (requireActivity() as RoversCallback)
+        viewModel = (requireActivity() as RoversActivity).viewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

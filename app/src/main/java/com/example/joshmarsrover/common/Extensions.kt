@@ -3,11 +3,18 @@ package com.example.joshmarsrover.common
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 enum class DateFormat(val value: String){
     NETWORK_FORMAT("yyyy-MM-dd"),
     OUTPUT_FORMAT("MM/dd/yyyy")
+}
+
+fun Long.datePickerValueToDate(): Date{
+    val timeZoneUTC = TimeZone.getDefault()
+    val offsetFromUTC = timeZoneUTC.getOffset(Date().time) * -1
+    return Date(this + offsetFromUTC)
 }
 
 fun String.toDate(inputFormat: DateFormat): Date? = try {
