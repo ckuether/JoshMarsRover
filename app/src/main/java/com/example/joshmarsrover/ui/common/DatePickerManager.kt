@@ -1,8 +1,10 @@
 package com.example.joshmarsrover.ui.common
 
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.scopes.ActivityScoped
+import java.util.Date
 import javax.inject.Inject
 
 @ActivityScoped
@@ -12,11 +14,17 @@ class DatePickerManager @Inject constructor(private val fragmentManager: Fragmen
         const val TAG_DATE_PICKER = "DATE_PICKER"
     }
 
-    val datePicker: MaterialDatePicker<Long> by lazy {
-        MaterialDatePicker.Builder.datePicker().build()
+    fun createDatePicker(maxDateConstraint: Date? = null): MaterialDatePicker<Long> {
+        val constraintBuilder = CalendarConstraints.Builder()
+        if(maxDateConstraint != null)
+            constraintBuilder.setEnd(maxDateConstraint.time)
+
+        return MaterialDatePicker.Builder.datePicker()
+            .setCalendarConstraints(constraintBuilder.build())
+            .build()
     }
 
-    fun showDatePicker(){
-        datePicker.show(fragmentManager, TAG_DATE_PICKER)
+    fun showDatePicker(picker: MaterialDatePicker<Long>){
+        picker.show(fragmentManager, TAG_DATE_PICKER)
     }
 }

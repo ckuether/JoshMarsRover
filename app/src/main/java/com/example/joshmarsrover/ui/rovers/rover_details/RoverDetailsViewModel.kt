@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.joshmarsrover.common.DateFormat
-import com.example.joshmarsrover.common.toDate
 import com.example.joshmarsrover.common.toFormattedString
 import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
@@ -24,10 +23,9 @@ class RoverDetailsViewModel @Inject constructor(private val roversRepo: RoversRe
 
     private var roverPos: Int = 0
 
-    //TODO:
     fun initRoverPosition(pos: Int){
         roverPos = pos
-        selectedDate = rover.max_date.toDate(DateFormat.NETWORK_FORMAT)
+        selectedDate = rover.maxDate
     }
 
     val rover: Rover

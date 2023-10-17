@@ -24,11 +24,12 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
 
     @Inject lateinit var datePickerManager: DatePickerManager
 
-    private val datePicker: MaterialDatePicker<Long>
-        get() = datePickerManager.datePicker
-
     private val rover: Rover
         get() = viewModel.rover
+
+    private val datePicker: MaterialDatePicker<Long> by lazy {
+        datePickerManager.createDatePicker(rover.maxDate)
+    }
 
     companion object {
         fun newInstance(roverPos: Int): RoverDetailsFragment {
@@ -62,10 +63,12 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         binding.photoCountTv.detailsTv.text = rover.photoCountString
         binding.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
 
+        updateSelectedDateText()
+
         setGridAdapterPhotos(rover.photos)
 
         binding.datePickerContainer.setOnClickListener {
-            datePickerManager.showDatePicker()
+            datePickerManager.showDatePicker(datePicker)
         }
 
         datePicker.addOnPositiveButtonClickListener {

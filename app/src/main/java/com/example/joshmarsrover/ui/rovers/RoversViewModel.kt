@@ -41,8 +41,8 @@ class RoversViewModel @Inject constructor(
 
     private fun collectRoversFlow() = viewModelScope.launch {
         roversRepo.getRoversFromNetwork()
-            .collect { roversRepsonse ->
-                _roversResponse.postValue(roversRepsonse)
+            .collect { roversResponse ->
+                _roversResponse.postValue(roversResponse)
             }
     }
 

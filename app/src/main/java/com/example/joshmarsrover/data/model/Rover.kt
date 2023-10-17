@@ -17,6 +17,9 @@ data class Rover(
     val total_photos: Int,
     var photos: List<Photo>?
 ){
+    val maxDate: Date?
+        get() = max_date.toDate(DateFormat.NETWORK_FORMAT)
+
     val camerasCount: Int
         get() = cameras.size
 

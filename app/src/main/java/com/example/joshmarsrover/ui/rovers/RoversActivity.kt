@@ -37,7 +37,7 @@ class RoversActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateToRovers(){
+    private fun navigateToRovers(){
         fragmentNavigator.navigateToRovers(binding.container.id)
         viewModel.updateNavToRoverPos(null)
     }
