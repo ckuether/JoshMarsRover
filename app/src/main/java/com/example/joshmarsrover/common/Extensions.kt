@@ -1,5 +1,7 @@
 package com.example.joshmarsrover.common
 
+import android.content.Context
+import android.widget.Toast
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -32,4 +34,8 @@ fun Date.toFormattedString(format: DateFormat = DateFormat.OUTPUT_FORMAT): Strin
 
 private fun getSimpleDateFormat(format: DateFormat): SimpleDateFormat{
     return SimpleDateFormat(format.value, Locale.getDefault())
+}
+
+fun Context.toast(message: String){
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

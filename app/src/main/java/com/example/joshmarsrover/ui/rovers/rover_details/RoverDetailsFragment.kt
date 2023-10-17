@@ -2,11 +2,13 @@ package com.example.joshmarsrover.ui.rovers.rover_details
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER_POS
 import com.example.joshmarsrover.common.datePickerValueToDate
+import com.example.joshmarsrover.common.toast
 import com.example.joshmarsrover.data.model.Photo
 import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
@@ -82,6 +84,9 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
 
                 if(it is ResponseWrapper.Success) {
                     setGridAdapterPhotos(it.data)
+                    if(it.data.isEmpty()){
+                        requireContext().toast("No Photos Found")
+                    }
                 }
             }
         }
