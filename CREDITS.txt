@@ -1,0 +1,11 @@
+#Dagger/HILT 
+https://dagger.dev/hilt/
+Dependecy injection framework
+
+#Retrofit
+https://square.github.io/retrofit/
+Networking Library
+
+#Picasso
+https://square.github.io/picasso/
+Image Handler library
