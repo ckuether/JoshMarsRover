@@ -43,7 +43,6 @@ class RoversRepositoryImpl @Inject constructor(
         }
     }
 
-    //TODO:
     override suspend fun getRoverPhotosFromNetwork(rover: Rover, date: String) = callbackFlow {
         val apiCall = apiService.getRoverPhotos(rover.name, date, apiKey)
         withContext(Dispatchers.IO){
