@@ -15,7 +15,7 @@ class RoversRVAdapter(private val viewModel: RoversViewModel,
 
     interface RoversCallback {
         fun getPhotos(pos: Int)
-        fun onItemClicked(pos: Int)
+        fun onRoverSelected(rover: Rover)
 
     }
 
@@ -49,7 +49,7 @@ class RoversRVAdapter(private val viewModel: RoversViewModel,
         holder.b.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
 
         holder.b.container.setOnClickListener {
-            callback.onItemClicked(position)
+            callback.onRoverSelected(rover)
         }
     }
 }

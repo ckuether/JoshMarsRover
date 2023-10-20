@@ -30,10 +30,6 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
     @Inject lateinit var resourceManager: AppResourceManager
 
-    companion object {
-        fun newInstance() = RoversFragment()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRoversBinding.bind(view)
@@ -44,8 +40,8 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
                 viewModel.getRoverPhotosFromNetwork(pos)
             }
 
-            override fun onItemClicked(pos: Int) {
-                findNavController().navigate(R.id.action_roversFragment_to_roversDetailsFragment, RoverDetailsFragment.setBundleArgs(pos))
+            override fun onRoverSelected(rover: Rover) {
+                findNavController().navigate(R.id.action_roversFragment_to_roversDetailsFragment, RoverDetailsFragment.setBundleArgs(rover))
             }
         })
 

@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.joshmarsrover.R
-import com.example.joshmarsrover.common.Contstants.KEY_ROVER_POS
+import com.example.joshmarsrover.common.Contstants.KEY_ROVER
 import com.example.joshmarsrover.common.datePickerValueToDate
 import com.example.joshmarsrover.common.toast
 import com.example.joshmarsrover.data.model.Photo
@@ -34,18 +34,18 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
     }
 
     companion object {
-        fun setBundleArgs(roverPos: Int): Bundle {
+        fun setBundleArgs(rover: Rover): Bundle {
             val b = Bundle()
-            b.putInt(KEY_ROVER_POS, roverPos)
+            b.putParcelable(KEY_ROVER, rover)
             return b
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val roverPos = arguments?.getInt(KEY_ROVER_POS)!!
+        val rover: Rover = arguments?.getParcelable(KEY_ROVER)!!
         viewModel = ViewModelProvider(this)[RoverDetailsViewModel::class.java]
-        viewModel.initRoverPosition(roverPos)
+        viewModel.initViewModel(rover)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

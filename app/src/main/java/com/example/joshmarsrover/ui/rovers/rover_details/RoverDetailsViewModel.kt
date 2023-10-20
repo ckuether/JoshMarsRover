@@ -18,18 +18,12 @@ import javax.inject.Inject
 @HiltViewModel
 class RoverDetailsViewModel @Inject constructor(private val roversRepo: RoversRepository): ViewModel() {
 
-    val rovers: List<Rover>
-        get() = roversRepo.cachedRovers!!
+    lateinit var rover: Rover
 
-    private var roverPos: Int = 0
-
-    fun initRoverPosition(pos: Int){
-        roverPos = pos
+    fun initViewModel(rover: Rover){
+        this.rover = rover
         selectedDate = rover.maxDate
     }
-
-    val rover: Rover
-        get() = rovers[roverPos]
 
     private var selectedDate: Date? = null
     private val networkFormatSelectedDate: String
