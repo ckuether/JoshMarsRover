@@ -2,9 +2,9 @@ package com.example.joshmarsrover.ui.rovers.rover_details
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER_POS
 import com.example.joshmarsrover.common.datePickerValueToDate
@@ -34,12 +34,10 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
     }
 
     companion object {
-        fun newInstance(roverPos: Int): RoverDetailsFragment {
-            val frag = RoverDetailsFragment()
+        fun setBundleArgs(roverPos: Int): Bundle {
             val b = Bundle()
             b.putInt(KEY_ROVER_POS, roverPos)
-            frag.arguments = b
-            return frag
+            return b
         }
     }
 
@@ -54,9 +52,9 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRoverDetailsBinding.bind(view)
 
-        binding.toolbar.toolbar.setNavigationIcon(com.google.android.material.R.drawable.ic_arrow_back_black_24)
-        binding.toolbar.toolbar.setNavigationOnClickListener {
-            activity?.onBackPressed()
+        binding.toolbarStandard.toolbar.setNavigationIcon(com.google.android.material.R.drawable.ic_arrow_back_black_24)
+        binding.toolbarStandard.toolbar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.action_roversDetailsFragment_to_roversFragment)
         }
 
         binding.nameTv.text = rover.name

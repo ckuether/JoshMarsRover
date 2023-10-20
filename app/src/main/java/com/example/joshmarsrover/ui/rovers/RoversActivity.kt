@@ -2,23 +2,20 @@ package com.example.joshmarsrover.ui.rovers
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import com.example.joshmarsrover.R
 import com.example.joshmarsrover.databinding.ActivityMainBinding
-import com.example.joshmarsrover.ui.common.FragmentNavigator
-import com.example.joshmarsrover.ui.rovers.rovers_list.RoversFragment
+import com.example.joshmarsrover.ui.rovers.rover_details.RoverDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoversActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    @Inject lateinit var fragmentNavigator: FragmentNavigator
-
-    private val containerFrag: Fragment?
-        get() = supportFragmentManager.findFragmentById(binding.container.id)
+    private lateinit var navHostFragment: NavHostFragment
 
     lateinit var viewModel: RoversViewModel
 
@@ -27,30 +24,14 @@ class RoversActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[RoversViewModel::class.java]
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        navigateToRovers()
+
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         viewModel.navToRoverPosition.observe(this){
             it?.let{
-                navigateToRoverDetails(it)
+                findNavController(R.id.nav_host_fragment).navigate(R.id.action_roversFragment_to_roversDetailsFragment, RoverDetailsFragment.setBundleArgs(it))
                 viewModel.updateNavToRoverPos(null)
             }
         }
-    }
-
-    private fun navigateToRovers(){
-        fragmentNavigator.navigateToRovers(binding.container.id)
-        viewModel.updateNavToRoverPos(null)
-    }
-
-    fun navigateToRoverDetails(roverPos: Int){
-        fragmentNavigator.navigateToRoverDetails(binding.container.id, roverPos)
-    }
-
-    override fun onBackPressed() {
-        if(containerFrag !is RoversFragment){
-            navigateToRovers()
-            return
-        }
-        super.onBackPressed()
     }
 }

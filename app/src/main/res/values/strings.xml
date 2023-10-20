@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">JoshMarsRover</string>
+
+    <string name="label_fragment_rovers">rovers_fragment</string>
+    <string name="label_fragment_rover_details">rover_details_fragment</string>
 </resources>

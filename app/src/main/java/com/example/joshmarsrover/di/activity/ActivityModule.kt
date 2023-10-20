@@ -4,6 +4,11 @@ import android.app.Activity
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import com.example.joshmarsrover.R
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +25,8 @@ object ActivityModule {
     fun fragmentManager(activity: AppCompatActivity): FragmentManager = activity.supportFragmentManager
 
     @Provides
-    fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
+    fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)
+
+    @Provides
+    fun navController(activity: AppCompatActivity): NavController = activity.findNavController(R.id.nav_host_fragment)
 }
