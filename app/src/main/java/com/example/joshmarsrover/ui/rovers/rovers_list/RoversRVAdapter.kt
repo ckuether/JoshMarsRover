@@ -10,7 +10,14 @@ import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import com.squareup.picasso.Picasso
 
 
-class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adapter<RoverViewHolder>() {
+class RoversRVAdapter(private val viewModel: RoversViewModel,
+                      private val callback: RoversCallback): RecyclerView.Adapter<RoverViewHolder>() {
+
+    interface RoversCallback {
+        fun getPhotos(pos: Int)
+        fun onItemClicked(pos: Int)
+
+    }
 
     private val rovers: List<Rover>
         get() = viewModel.rovers
@@ -27,7 +34,7 @@ class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adap
     override fun onBindViewHolder(holder: RoverViewHolder, position: Int) {
         val rover = rovers[position]
         if(rover.photos == null){
-            viewModel.getRoverPhotosFromNetwork(rover, position)
+            callback.getPhotos(position)
         }
 
         Picasso.get().load(rover.firstPhoto?.img_src)
@@ -42,7 +49,7 @@ class RoversRVAdapter(private val viewModel: RoversViewModel): RecyclerView.Adap
         holder.b.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
 
         holder.b.container.setOnClickListener {
-            viewModel.updateNavToRoverPos(position)
+            callback.onItemClicked(position)
         }
     }
 }

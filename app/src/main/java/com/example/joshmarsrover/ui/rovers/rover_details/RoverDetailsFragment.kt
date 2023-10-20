@@ -54,7 +54,7 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
 
         binding.toolbarStandard.toolbar.setNavigationIcon(com.google.android.material.R.drawable.ic_arrow_back_black_24)
         binding.toolbarStandard.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_roversDetailsFragment_to_roversFragment)
+            findNavController().navigateUp()
         }
 
         binding.nameTv.text = rover.name

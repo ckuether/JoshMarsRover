@@ -27,14 +27,6 @@ class RoversViewModel @Inject constructor(
     val updateRoverAtPos: LiveData<Int>
         get() = _updateRoverAtPos
 
-    private var _navToRoverPosition = MutableLiveData<Int?>()
-    val navToRoverPosition: LiveData<Int?>
-        get() = _navToRoverPosition
-
-    fun updateNavToRoverPos(pos: Int?){
-        _navToRoverPosition.postValue(pos)
-    }
-
     init {
         collectRoversFlow()
     }
@@ -46,7 +38,8 @@ class RoversViewModel @Inject constructor(
             }
     }
 
-    fun getRoverPhotosFromNetwork(rover: Rover, pos: Int) = viewModelScope.launch {
+    fun getRoverPhotosFromNetwork(pos: Int) = viewModelScope.launch {
+        val rover = rovers[pos]
         roversRepo.getRoverPhotosFromNetwork(rover, rover.max_date)
             .collect{
                 if(it is ResponseWrapper.Success){

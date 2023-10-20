@@ -21,7 +21,7 @@
         android:name="com.example.joshmarsrover.ui.rovers.rover_details.RoverDetailsFragment"
         android:layout="@layout/fragment_rover_details">
 
-        <action android:id="@+id/action_roversDetailsFragment_to_roversFragment"
-            app:popUpTo="@id/roversFragment"/>
+<!--        <action android:id="@+id/action_roversDetailsFragment_to_roversFragment"-->
+<!--            app:popUpTo="@id/roversFragment"/>-->
     </fragment>
 </navigation>

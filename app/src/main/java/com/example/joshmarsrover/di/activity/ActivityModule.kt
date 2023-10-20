@@ -28,5 +28,8 @@ object ActivityModule {
     fun layoutInflater(activity: AppCompatActivity): LayoutInflater = LayoutInflater.from(activity)
 
     @Provides
-    fun navController(activity: AppCompatActivity): NavController = activity.findNavController(R.id.nav_host_fragment)
+    fun navHostFragment(fragmentManager: FragmentManager): NavHostFragment = fragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+
+    @Provides
+    fun navController(navHostFrag: NavHostFragment): NavController = navHostFrag.navController
 }
