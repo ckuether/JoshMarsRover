@@ -23,8 +23,7 @@ import javax.inject.Inject
 class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
     private lateinit var binding: FragmentRoversBinding
-
-    private val viewModel: RoversViewModel by navGraphViewModels(R.id.app_navigation) { defaultViewModelProviderFactory }
+    private val viewModel: RoversViewModel by navGraphViewModels(R.id.rovers_graph) { defaultViewModelProviderFactory }
 
     private val recyclerView: RecyclerView
         get() = binding.roversRv

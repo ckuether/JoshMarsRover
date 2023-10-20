@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/roversFragment"
-    android:id="@+id/app_navigation">
+    android:id="@+id/rovers_graph"
+    app:startDestination="@id/roversFragment">
 
     <fragment android:id="@+id/roversFragment"
         android:label="@string/label_fragment_rovers"
-        android:name="com.example.joshmarsrover.ui.rovers.rovers_list.RoversFragment"
-        tools:layout="@layout/fragment_rovers">
-
+        android:name="com.example.joshmarsrover.ui.rovers.rovers_list.RoversFragment">
 
         <action
             android:id="@+id/action_roversFragment_to_roversDetailsFragment"
@@ -19,9 +16,5 @@
     <fragment android:id="@+id/roversDetails"
         android:label="@string/label_fragment_rover_details"
         android:name="com.example.joshmarsrover.ui.rovers.rover_details.RoverDetailsFragment"
-        android:layout="@layout/fragment_rover_details">
-
-<!--        <action android:id="@+id/action_roversDetailsFragment_to_roversFragment"-->
-<!--            app:popUpTo="@id/roversFragment"/>-->
-    </fragment>
+        android:layout="@layout/fragment_rover_details"/>
 </navigation>
