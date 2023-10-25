@@ -1,4 +1,4 @@
-package com.example.joshmarsrover.ui.common
+package com.example.joshmarsrover.ui.common.fragment
 
 import androidx.fragment.app.FragmentManager
 import com.example.joshmarsrover.data.model.Rover

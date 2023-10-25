@@ -1,4 +1,4 @@
-package com.example.joshmarsrover.di.app
+package com.example.joshmarsrover.domain.app
 
 import com.example.joshmarsrover.BuildConfig
 import com.example.joshmarsrover.api.PhotosDeserializer
