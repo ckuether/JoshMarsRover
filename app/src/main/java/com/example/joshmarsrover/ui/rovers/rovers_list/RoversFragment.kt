@@ -26,7 +26,7 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
     private val viewModel: RoversViewModel by navGraphViewModels(R.id.rovers_graph) { defaultViewModelProviderFactory }
 
     private val recyclerView: RecyclerView
-        get() = binding.viewRoversList.roversRv
+        get() = binding.roversRv
 
     @Inject lateinit var resourceManager: AppResourceManager
 
