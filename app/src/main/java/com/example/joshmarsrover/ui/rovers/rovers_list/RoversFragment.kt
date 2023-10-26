@@ -3,8 +3,7 @@ package com.example.joshmarsrover.ui.rovers.rovers_list
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,21 +13,34 @@ import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoversBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.AppResourceManager
+import com.example.joshmarsrover.ui.rovers.RoversActivity
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
-import com.example.joshmarsrover.ui.rovers.rover_details.RoverDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class RoversFragment : Fragment(R.layout.fragment_rovers) {
 
+    private lateinit var roversActivity: RoversActivity
+
     private lateinit var binding: FragmentRoversBinding
-    private val viewModel: RoversViewModel by navGraphViewModels(R.id.rovers_graph) { defaultViewModelProviderFactory }
+    private val viewModel: RoversViewModel by activityViewModels()
 
     private val recyclerView: RecyclerView
         get() = binding.roversRv
 
     @Inject lateinit var resourceManager: AppResourceManager
+
+    companion object{
+        fun newInstance(): RoversFragment{
+            return RoversFragment()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        roversActivity = activity as RoversActivity
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +53,7 @@ class RoversFragment : Fragment(R.layout.fragment_rovers) {
             }
 
             override fun onRoverSelected(rover: Rover) {
-                findNavController().navigate(R.id.action_roversFragment_to_roversDetailsFragment, RoverDetailsFragment.setBundleArgs(rover))
+                roversActivity.attachRoverDetailsFragment(rover)
             }
         })
 

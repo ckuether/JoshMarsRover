@@ -11,6 +11,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+enum class RoversNavigation{
+    ROVERS,
+    ROVER_DETAILS
+}
+
 @HiltViewModel
 class RoversViewModel @Inject constructor(
     private var roversRepo: RoversRepository

@@ -14,6 +14,7 @@ import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.DatePickerManager
+import com.example.joshmarsrover.ui.rovers.RoversActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,10 +35,12 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
     }
 
     companion object {
-        fun setBundleArgs(rover: Rover): Bundle {
+        fun newInstance(rover: Rover): RoverDetailsFragment {
+            val frag = RoverDetailsFragment()
             val b = Bundle()
             b.putParcelable(KEY_ROVER, rover)
-            return b
+            frag.arguments = b
+            return frag
         }
     }
 
@@ -51,11 +54,6 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRoverDetailsBinding.bind(view)
-
-        binding.toolbarStandard.toolbar.setNavigationIcon(com.google.android.material.R.drawable.ic_arrow_back_black_24)
-        binding.toolbarStandard.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
 
         binding.nameTv.text = rover.name
         binding.launchDateTv.detailsTv.text = rover.launchDateDescription
