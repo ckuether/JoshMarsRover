@@ -46,6 +46,7 @@ class RoversActivity : BaseActivity() {
         }
         fragNavigator.navigateToRoverDetails(binding.fragContainer.id, rover)
     }
+
     override fun onBackPressed() {
         if(isPhone && containerFrag !is RoversFragment){
             attachRoversFragment()

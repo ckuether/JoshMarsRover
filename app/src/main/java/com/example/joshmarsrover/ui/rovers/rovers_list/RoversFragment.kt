@@ -1,7 +1,6 @@
 package com.example.joshmarsrover.ui.rovers.rovers_list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,13 +12,14 @@ import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoversBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.AppResourceManager
+import com.example.joshmarsrover.ui.common.fragment.BaseFragment
 import com.example.joshmarsrover.ui.rovers.RoversActivity
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoversFragment : Fragment(R.layout.fragment_rovers) {
+class RoversFragment : BaseFragment(R.layout.fragment_rovers) {
 
     private lateinit var roversActivity: RoversActivity
 
