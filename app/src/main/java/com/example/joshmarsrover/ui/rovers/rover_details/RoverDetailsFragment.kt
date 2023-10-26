@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER
 import com.example.joshmarsrover.common.datePickerValueToDate
@@ -14,7 +13,6 @@ import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.DatePickerManager
-import com.example.joshmarsrover.ui.rovers.RoversActivity
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -66,7 +64,8 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         setGridAdapterPhotos(rover.photos)
 
         binding.datePickerContainer.setOnClickListener {
-            datePickerManager.showDatePicker(datePicker)
+            if(!datePicker.isAdded)
+                datePickerManager.showDatePicker(datePicker)
         }
 
         datePicker.addOnPositiveButtonClickListener {

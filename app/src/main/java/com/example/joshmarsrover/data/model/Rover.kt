@@ -23,6 +23,9 @@ data class Rover(
     val maxDate: Date?
         get() = max_date.toDate(DateFormat.NETWORK_FORMAT)
 
+    val formattedTotalPhotos: String
+        get() = String.format("%,d", total_photos)
+
     val camerasCount: Int
         get() = cameras.size
 
@@ -33,7 +36,7 @@ data class Rover(
         get() = photos?.size ?: 0
 
     val photoCountString
-        get() = "Photo Count: $photoCount"
+        get() = "Photo Count: $formattedTotalPhotos"
 
     val firstPhoto: Photo?
         get() = if(photoCount > 0) photos!![0] else null
@@ -48,7 +51,7 @@ data class Rover(
         get() = "Launch: $formattedLaunchDate"
 
     private val landingDate: Date?
-        get() = launch_date.toDate(DateFormat.NETWORK_FORMAT)
+        get() = landing_date.toDate(DateFormat.NETWORK_FORMAT)
 
     private val formattedLandingDate: String
         get() = landingDate?.toFormattedString() ?: ""

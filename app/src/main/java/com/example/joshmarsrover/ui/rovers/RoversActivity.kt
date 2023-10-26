@@ -15,7 +15,6 @@ import javax.inject.Inject
 class RoversActivity : BaseActivity() {
 
     @Inject lateinit var fragNavigator: FragmentNavigator
-
     private lateinit var binding: ActivityRoversBinding
 
     private val containerFrag: Fragment?
