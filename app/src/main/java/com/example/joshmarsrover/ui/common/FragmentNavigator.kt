@@ -10,13 +10,13 @@ import javax.inject.Inject
 @ActivityScoped
 class FragmentNavigator @Inject constructor(private val fragmentManager: FragmentManager) {
 
-//    fun navigateToRovers(containerId: Int){
-//        val frag = RoversFragment.newInstance()
-//        fragmentManager.beginTransaction().replace(containerId, frag).commit()
-//    }
+    fun navigateToRovers(containerId: Int){
+        val frag = RoversFragment.newInstance()
+        fragmentManager.beginTransaction().replace(containerId, frag).commit()
+    }
 
-//    fun navigateToRoverDetails(containerId: Int, roverPos: Int){
-//        val frag = RoverDetailsFragment.newInstance(roverPos)
-//        fragmentManager.beginTransaction().replace(containerId, frag).commit()
-//    }
+    fun navigateToRoverDetails(containerId: Int, rover: Rover){
+        val frag = RoverDetailsFragment.newInstance(rover)
+        fragmentManager.beginTransaction().replace(containerId, frag).commit()
+    }
 }

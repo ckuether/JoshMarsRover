@@ -2,9 +2,7 @@ package com.example.joshmarsrover.ui.rovers.rover_details
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.joshmarsrover.R
 import com.example.joshmarsrover.common.Contstants.KEY_ROVER
 import com.example.joshmarsrover.common.datePickerValueToDate
@@ -14,12 +12,13 @@ import com.example.joshmarsrover.data.model.Rover
 import com.example.joshmarsrover.databinding.FragmentRoverDetailsBinding
 import com.example.joshmarsrover.domain.model.ResponseWrapper
 import com.example.joshmarsrover.ui.common.DatePickerManager
+import com.example.joshmarsrover.ui.common.fragment.BaseFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
+class RoverDetailsFragment: BaseFragment(R.layout.fragment_rover_details) {
 
     private lateinit var binding: FragmentRoverDetailsBinding
     private lateinit var viewModel: RoverDetailsViewModel
@@ -34,10 +33,12 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
     }
 
     companion object {
-        fun setBundleArgs(rover: Rover): Bundle {
+        fun newInstance(rover: Rover): RoverDetailsFragment {
+            val frag = RoverDetailsFragment()
             val b = Bundle()
             b.putParcelable(KEY_ROVER, rover)
-            return b
+            frag.arguments = b
+            return frag
         }
     }
 
@@ -52,23 +53,20 @@ class RoverDetailsFragment: Fragment(R.layout.fragment_rover_details) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRoverDetailsBinding.bind(view)
 
-        binding.toolbarStandard.toolbar.setNavigationIcon(com.google.android.material.R.drawable.ic_arrow_back_black_24)
-        binding.toolbarStandard.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
         binding.nameTv.text = rover.name
         binding.launchDateTv.detailsTv.text = rover.launchDateDescription
         binding.landingDateTv.detailsTv.text = rover.landingDateDescription
         binding.photoCountTv.detailsTv.text = rover.photoCountString
         binding.camerasAvailableTv.detailsTv.text = rover.camerasAvailableString
+        binding.photosGrid.numColumns = if(isTablet) 3 else 2
 
         updateSelectedDateText()
 
         setGridAdapterPhotos(rover.photos)
 
         binding.datePickerContainer.setOnClickListener {
-            datePickerManager.showDatePicker(datePicker)
+            if(!datePicker.isAdded)
+                datePickerManager.showDatePicker(datePicker)
         }
 
         datePicker.addOnPositiveButtonClickListener {

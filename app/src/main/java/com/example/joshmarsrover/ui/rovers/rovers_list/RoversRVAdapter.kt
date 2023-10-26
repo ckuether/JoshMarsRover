@@ -9,7 +9,6 @@ import com.example.joshmarsrover.databinding.ViewHolderRoverBinding
 import com.example.joshmarsrover.ui.rovers.RoversViewModel
 import com.squareup.picasso.Picasso
 
-
 class RoversRVAdapter(private val viewModel: RoversViewModel,
                       private val callback: RoversCallback): RecyclerView.Adapter<RoverViewHolder>() {
 
